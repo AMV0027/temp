@@ -1,0 +1,35 @@
+#include <Servo.h>
+
+int POSservo = 0;
+Servo servo_5;
+
+void setup()
+{
+ 	servo_5.attach(9);
+}
+void loop()
+{
+ 	char data;
+ 	if(Serial.available())
+ 	{
+ 		data=Serial.read();
+ 	if(data=='1')
+ 	{
+		for (POSservo = 0; POSservo <= 180; POSservo=POSservo+1)
+ 		{
+			servo_5.write(POSservo);
+ 			Serial.print("Forward Direction");
+			 delay(20); 
+ 		}
+ 	}
+ 	if(data=='2')
+ 	{
+ 		for (POSservo = 180; POSservo >= 0;POSservo= POSservo-1)
+ 		{
+ 			servo_5.write(POSservo);
+ 			Serial.print("Backward Direction");
+ 			delay(20);
+ 		}
+ 	}
+ 	}
+} 

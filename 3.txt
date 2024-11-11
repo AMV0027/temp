@@ -1,0 +1,34 @@
+mkdir codes
+cd codes
+
+nano main.c
+	#include <stdio.h>
+	#include "customlib.h"
+
+	int main()
+	{
+	int a=4, b=2;
+	printf("div = %d\nmul = %d", div(a,b), mul(a,b));
+	
+	return 0;
+	}
+
+
+nano mul.c
+	int mul(int a, int b){return a*b;}
+
+
+nano div.c
+	int div(int a, int b){return a/b;}
+
+nano customlib.h
+	int mul(int, int);
+	int div(int, int);
+
+gcc -c main.c div.c mul.c
+
+ar rs customlib.a mul.o div.o
+
+gcc -o main main.o customlib.a
+
+./main

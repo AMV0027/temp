@@ -1,0 +1,48 @@
+#include <WiFi.h>
+
+char ssid[] = "hotspot_name";
+char password[] = "hotspot_passwd";
+
+WiFiServer server(80);
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(RED_LED, OUTPUT);
+   
+    WiFi.begin(ssid, password);
+    Serial.print("Connecting to WiFi");
+   
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(300);
+        Serial.print(".");
+    }
+   
+    Serial.println("\nConnected to WiFi!");
+    server.begin();
+}
+
+void loop() {
+    WiFiClient client = server.available();
+
+    if (client) { 
+        String req = client.readStringUntil('\n');       
+        if (req.indexOf("GET /H") >= 0) {
+            digitalWrite(RED_LED, HIGH);
+        }
+        if (req.indexOf("GET /L") >= 0) {
+            digitalWrite(RED_LED, LOW);        
+	}
+
+        client.println("HTTP/1.1 200 OK");
+        client.println("Content-type:text/html");
+        client.println(); // Blank line to end headers
+       
+        client.println("<html><body>");
+        client.println("<h1>Welcome to the CC3200 WiFi Web Server</h1>");
+        client.println("RED LED <button onclick=\"location.href='/H'\">HIGH</button> ");
+        client.println("<button onclick=\"location.href='/L'\">LOW</button>");
+        client.println("</body></html>");
+
+        client.stop();
+    }
+}

@@ -1,0 +1,14 @@
+nano main.c
+	#include<stdio,h>
+	#include<conio.h>
+	void main()
+	{
+	printf(“Gilchrist”);
+	getch();
+	}
+
+sudo apt-get install cscope
+
+cscope main.c
+
+-> search printf()

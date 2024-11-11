@@ -51,7 +51,7 @@ sudo rnmod hello
 
 modinfo hello.ko
 
-dmseg | tail
+dmseg
 
 modinfo hello.ko
 

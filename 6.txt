@@ -39,11 +39,17 @@ clean:
 
 make
 
-sudo insmod hello.ko
+lsmod
 
-dmseg | tail
+lsmod | grep hello
 
-sudo rmod hello
+sudo insmod ./hello.ko
+
+dmseg
+
+sudo rnmod hello
+
+modinfo hello.ko
 
 dmseg | tail
 

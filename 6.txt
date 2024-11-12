@@ -36,22 +36,12 @@ all:
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 ```
-
 make
-
 lsmod
-
 lsmod | grep hello
-
 sudo insmod ./hello.ko
-
-dmseg
-
-sudo rnmod hello
-
-modinfo hello.ko
-
-dmseg
-
-modinfo hello.ko
+dmesg | tail
+sudo rmmod hello
+dmesg | tail
+modinfo hello.komodinfo hello.ko
 
